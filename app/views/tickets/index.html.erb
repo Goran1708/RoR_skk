@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+  <h1>Tickets</h1>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Operator</th>
+        <th>Destination</th>
+        <th>departure</th>
+        <th>Arrival</th>
+        <th></th>
+    		<th></th>
+    		<th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @tickets.each do |ticket| %>
+        <tr>
+          <td><%= "Cazmatrans" %></td>
+          <td><%= ticket.destination %></td>
+          <td><%= ticket.departure %></td>
+          <td><%= ticket.arrival %></td>
+          <td><%= link_to 'Show', ticket %>
+          <td><%= link_to 'Edit', edit_ticket_path(ticket) %></td>
+          <td><%= link_to 'Destroy', ticket, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+
+    </tbody>
+  </table>
+  <%= link_to 'New Ticket', new_ticket_path %>

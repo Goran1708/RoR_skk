@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<div class="card bg-light">
+    <div class="card-body text-left">
+      <p>
+        <strong>Operator:</strong>
+        <%= @ticket.destination %>
+      </p>
+      <p>
+        <strong>Destination:</strong>
+        <%= @ticket.destination %>
+      </p>
+
+      <p>
+        <strong>Departure:</strong>
+        <%= @ticket.departure %>
+      </p>
+
+      <p>
+        <strong>Arrival:</strong>
+        <%= @ticket.arrival %>
+      </p>
+
+      <%= link_to 'Buy ticket', edit_ticket_path(@ticket) %> |
+      <%= link_to 'Back', tickets_path %>
+    </div>
+  </div>
