@@ -1,7 +1,6 @@
 class PurchasesController < ApplicationController
   include PurchasesHelper
-  before_action :set_purchase_history, only: [:buy_ticket]
-  before_action :set_ticket, only: [:show]
+  before_action :set_purchase_history
 
   def buy_ticket
     @ticket = Ticket.find(params[:ticket_id])
@@ -34,29 +33,25 @@ class PurchasesController < ApplicationController
 
   def cancel_ticket
     @order_item = OrderItem.find(params[:order_item_id])
-    @order_item.destroy
-    respond_to do |format|
-      format.html { redirect_to root_path, notice: 'Order was successfully destroyed.' }
-      format.json { head :no_content }
+    if @order_item.destroy
+      respond_to do |format|
+        format.html { redirect_to root_path, notice: 'Order was successfully destroyed.' }
+        format.json { head :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to root_path, alert: @order_item.errors[:base].first }
+        format.json { head :no_content }
+      end
     end
   end
 
   def index
-    @purchase_history = current_user.purchase_history
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_ticket
-      @ticket = Ticket.find(params[:id])
-    end
-
     def set_purchase_history
-      if (current_user.purchase_history != nil)
-        @purchase_history = PurchaseHistory.find_by(id: current_user.purchase_history.id)
-      else
-        @purchase_history = PurchaseHistory.new(user_id: current_user.id)
-        @purchase_history.save!
-      end
+      @purchase_history = current_user.purchase_history
     end
 end

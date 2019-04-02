@@ -40,5 +40,11 @@ Ticket.create!([
   price: 70,
   operator_id: operator.third.id,
   departure: "2019-04-01 11:50:32",
-  arrival: "2019-04-01 14:50:32"}
+  arrival: "2019-04-01 14:50:32"},
+  {destination: "Rijeka",
+  quantity: 3,
+  price: 50,
+  operator_id: operator.third.id,
+  departure: Time.now + 1.hours,
+  arrival: Time.now + 1.hours}
   ])
