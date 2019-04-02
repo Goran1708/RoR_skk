@@ -5,3 +5,40 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+
+User.create!(email: "admin@admin.com",
+  first_name: "first",
+  last_name: "last",
+  password: "password",
+  password_confirmation: "password")
+
+operator =
+Operator.create!([{name: "Cazmatrans"}, { name: "Autotrans"}, { name: "Croatia Bus"}])
+
+Ticket.create!([
+  { destination: "Split",
+  quantity: 10,
+  price: 100,
+  operator_id: operator.first.id,
+  departure: "2019-04-26 11:50:32",
+  arrival: "2019-04-26 15:50:32" },
+  {destination: "Dubrovnik",
+  departure: "2019-04-24 11:50:32",
+  quantity: 5,
+  price: 200,
+  operator_id: operator.first.id,
+  arrival: "2019-04-24 16:50:32"},
+  {destination: "Zadar",
+  quantity: 7,
+  price: 50,
+  operator_id: operator.second.id,
+  departure: "2019-05-15 11:50:32",
+  arrival: "2019-05-15 13:50:32"},
+  {destination: "Sibenik",
+  quantity: 2,
+  price: 70,
+  operator_id: operator.third.id,
+  departure: "2019-04-01 11:50:32",
+  arrival: "2019-04-01 14:50:32"}
+  ])

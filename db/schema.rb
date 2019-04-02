@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_01_152520) do
+ActiveRecord::Schema.define(version: 2019_04_02_105607) do
 
   create_table "cards", force: :cascade do |t|
     t.string "card_number"
@@ -30,6 +30,8 @@ ActiveRecord::Schema.define(version: 2019_04_01_152520) do
     t.integer "ticket_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "amount", default: 1
+    t.integer "total"
     t.index ["purchase_history_id"], name: "index_order_items_on_purchase_history_id"
     t.index ["ticket_id"], name: "index_order_items_on_ticket_id"
   end
@@ -48,6 +50,8 @@ ActiveRecord::Schema.define(version: 2019_04_01_152520) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "operator_id"
+    t.integer "quantity"
+    t.decimal "price"
     t.index ["operator_id"], name: "index_tickets_on_operator_id"
   end
 

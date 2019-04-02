@@ -1,0 +1,29 @@
+
+  <h1>Purchase history</h1>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Operator</th>
+        <th>Destination</th>
+        <th>departure</th>
+        <th>Arrival</th>
+        <th>Amount</th>
+        <th>Price</th>
+    		<th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @purchase_history.order_items.each do |order_item| %>
+        <tr>
+          <td><%= "Cazmatrans" %></td>
+          <td><%= order_item.ticket.destination %></td>
+          <td><%= order_item.ticket.departure %></td>
+          <td><%= order_item.ticket.arrival %></td>
+          <td><%= order_item.amount %></td>
+          <td><%= order_item.total %></td>
+          <td><%= link_to 'Cancel', cancel_ticket_path(order_item_id: order_item.id), method: :delete %></td>
+        </tr>
+      <% end %>
+
+    </tbody>
+  </table>

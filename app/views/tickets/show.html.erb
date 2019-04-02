@@ -1,4 +1,4 @@
-<p id="notice"><%= notice %></p>
+
 
 <div class="card bg-light">
     <div class="card-body text-left">
@@ -21,7 +21,33 @@
         <%= @ticket.arrival %>
       </p>
 
-      <%= link_to 'Buy ticket', edit_ticket_path(@ticket) %> |
-      <%= link_to 'Back', tickets_path %>
+      <%= form_for @ticket, url: buy_ticket_path, method: :post  do |f| %>
+
+        <% if user_signed_in? %>
+          <strong>User email:</strong>
+          <%= current_user.email %>
+        <p>
+          <strong>Full name:</strong>
+          <%= current_user.first_name + " " + current_user.last_name %>
+        </p>
+        <% end %>
+
+        <div class="form-group">
+          <%= f.label "Card number" %>
+          <%= text_field_tag :card_number %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label "CVV" %>
+          <%= text_field_tag :cvv %>
+        </div>
+
+        <%= hidden_field_tag :ticket_id, @ticket.id  %>
+
+
+        <div class="form-group">
+          <%= f.submit "Buy Ticket", class: 'btn btn-primary' %>
+        </div>
+      <% end %>
     </div>
   </div>

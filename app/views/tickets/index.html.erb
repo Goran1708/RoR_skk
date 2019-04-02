@@ -1,4 +1,4 @@
-<p id="notice"><%= notice %></p>
+
   <h1>Tickets</h1>
   <table class="table table-striped">
     <thead>
@@ -7,9 +7,11 @@
         <th>Destination</th>
         <th>departure</th>
         <th>Arrival</th>
-        <th></th>
-    		<th></th>
-    		<th></th>
+        <th>Amount</th>
+        <th>Price</th>
+        <% if user_signed_in? %>
+        	<th></th>
+        <% end %>
       </tr>
     </thead>
     <tbody>
@@ -19,9 +21,11 @@
           <td><%= ticket.destination %></td>
           <td><%= ticket.departure %></td>
           <td><%= ticket.arrival %></td>
-          <td><%= link_to 'Show', ticket %>
-          <td><%= link_to 'Edit', edit_ticket_path(ticket) %></td>
-          <td><%= link_to 'Destroy', ticket, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td><%= ticket.quantity %></td>
+          <td><%= ticket.price %></td>
+          <% if user_signed_in? %>
+            <td><%= link_to 'Buy', ticket %></td>
+          <% end %>
         </tr>
       <% end %>
 
