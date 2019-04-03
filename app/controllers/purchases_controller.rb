@@ -10,7 +10,7 @@ class PurchasesController < ApplicationController
         format.html { redirect_to purchase_history_path, notice: 'You bought the ticket!' }
         format.json { render :show, status: :created, location: @order_item }
       else
-        format.html { render :new }
+        format.html { redirect_to root_path, alert: @order_item.errors.full_messages }
         format.json { render json: @order_item.errors, status: :unprocessable_entity }
       end
     end

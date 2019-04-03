@@ -53,4 +53,4 @@ card_type = CardType.create!(type_name: "MASTERCARD")
 
 card = Card.create!(card_number: "1234567812345678", ccv: "567", expiration_date: "2021-04-24 16:50:32", card_type_id: card_type.id, user_id: user.id)
 
-CardAccount.create!(balance: 2000, card_id: card.id)
+CardAccount.create!(balance: 1000, card_id: card.id)
