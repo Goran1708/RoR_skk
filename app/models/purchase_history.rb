@@ -9,9 +9,7 @@ class PurchaseHistory < ApplicationRecord
     if order_item
       order_item.increment(:amount)
     else
-      order_item = order_items.build(ticket_id: ticket.id)
+      order_items.build(ticket_id: ticket.id)
     end
-
-    order_item
   end
 end

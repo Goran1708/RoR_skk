@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_one :purchase_history
+  has_many :cards
 
   after_create_commit :set_purchase_history!
 

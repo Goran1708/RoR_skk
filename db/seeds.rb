@@ -7,7 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
-User.create!(email: "admin@admin.com",
+user = User.create!(email: "admin@admin.com",
   first_name: "first",
   last_name: "last",
   password: "password",
@@ -48,3 +48,9 @@ Ticket.create!([
   departure: Time.now + 1.hours,
   arrival: Time.now + 1.hours}
   ])
+
+card_type = CardType.create!(type_name: "MASTERCARD")
+
+card = Card.create!(card_number: "1234567812345678", ccv: "567", expiration_date: "2021-04-24 16:50:32", card_type_id: card_type.id, user_id: user.id)
+
+CardAccount.create!(balance: 2000, card_id: card.id)

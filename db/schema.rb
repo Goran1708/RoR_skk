@@ -10,13 +10,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_02_105607) do
+ActiveRecord::Schema.define(version: 2019_04_03_195016) do
 
-  create_table "cards", force: :cascade do |t|
-    t.string "card_number"
-    t.string "ccv"
+  create_table "card_accounts", force: :cascade do |t|
+    t.integer "card_id"
+    t.integer "balance"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["card_id"], name: "index_card_accounts_on_card_id"
+  end
+
+  create_table "card_types", force: :cascade do |t|
+    t.string "type_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "cards", force: :cascade do |t|
+    t.string "card_number_digest"
+    t.string "cvv_digest"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.time "expiration_date"
+    t.integer "user_id"
+    t.integer "card_type_id"
+    t.index ["card_type_id"], name: "index_cards_on_card_type_id"
+    t.index ["user_id"], name: "index_cards_on_user_id"
   end
 
   create_table "operators", force: :cascade do |t|
