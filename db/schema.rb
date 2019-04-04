@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_03_195016) do
+ActiveRecord::Schema.define(version: 2019_04_04_103942) do
 
   create_table "card_accounts", force: :cascade do |t|
     t.integer "card_id"
@@ -42,6 +42,8 @@ ActiveRecord::Schema.define(version: 2019_04_03_195016) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id"
+    t.index ["user_id"], name: "index_operators_on_user_id"
   end
 
   create_table "order_items", force: :cascade do |t|

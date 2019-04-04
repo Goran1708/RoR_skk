@@ -4,7 +4,8 @@
 # Examples:
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+#   Character.create(name: 'Luke', movie: movies.first
+
 
 
 user = User.create!(email: "admin@admin.com",
@@ -13,8 +14,24 @@ user = User.create!(email: "admin@admin.com",
   password: "password",
   password_confirmation: "password")
 
+user2 = User.create!(email: "admin@autotrans.com",
+  first_name: "auto",
+  last_name: "trans",
+  password: "password",
+  password_confirmation: "password")
+
+user3 = User.create!(email: "admin@croatiabus.com",
+  first_name: "croatia",
+  last_name: "bus",
+  password: "password",
+  password_confirmation: "password")
+
 operator =
-Operator.create!([{name: "Cazmatrans"}, { name: "Autotrans"}, { name: "Croatia Bus"}])
+  Operator.create!([
+    { name: "Cazmatrans", user_id: user.id },
+    { name: "Autotrans", user_id: user2.id },
+    { name: "Croatia Bus", user_id: user3.id }
+    ])
 
 Ticket.create!([
   { destination: "Split",
@@ -49,8 +66,8 @@ Ticket.create!([
   arrival: Time.now + 1.hours}
   ])
 
-card_type = CardType.create!(type_name: "MASTERCARD")
-
-card = Card.create!(card_number: "1234567812345678", ccv: "567", expiration_date: "2021-04-24 16:50:32", card_type_id: card_type.id, user_id: user.id)
-
-CardAccount.create!(balance: 1000, card_id: card.id)
+# card_type = CardType.create!(type_name: "MASTERCARD")
+#
+# card = Card.create!(card_number: "1234567812345678", ccv: "567", expiration_date: "2021-04-24 16:50:32", card_type_id: card_type.id, user_id: user.id)
+#
+# CardAccount.create!(balance: 1000, card_id: card.id)

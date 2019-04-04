@@ -28,6 +28,9 @@
           <% end %>
         </tr>
       <% end %>
-
     </tbody>
   </table>
+
+  <% if current_user.is_operator? %>
+    <%= link_to 'New ticket', new_ticket_path %>
+  <% end %>

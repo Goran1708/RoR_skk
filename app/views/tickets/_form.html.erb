@@ -1,32 +1,48 @@
-<%= form_with(model: ticket, local: true) do |form| %>
-  <% if ticket.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(ticket.errors.count, "error") %> prohibited this ticket from being saved:</h2>
+<div class="card bg-light">
+    <div class="card-body text-left">
+      <%= form_for @ticket, url: tickets_path, method: :post  do |f| %>
+        <% if @ticket.errors.any? %>
+          <div id="error_explanation">
+          <h2><%= pluralize(ticket.errors.count, "error") %> prohibited this ticket from being saved:</h2>
+          <% @ticket.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        <% end %>
 
-      <ul>
-      <% ticket.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+        <p>
+          <strong>User email:</strong>
+          <%= current_user.email %>
+        </p>
+        <p>
+          <strong>Operator:</strong>
+          <%= current_user.operator.name %>
+        </p>
+        <div class="form-group">
+          <%= f.label :destination %>
+          <%= f.text_field :destination %>
+        </div>
+        <div class="form-group">
+          <%= f.label :price %>
+          <%= f.text_field :price %>
+        </div>
+        <div class="form-group">
+          <%= f.label :quantity %>
+          <%= f.text_field :quantity %>
+        </div>
+        <div class="form-group">
+          <%= f.label :departure %>
+          <%= f.datetime_select :departure %>
+        </div>
+        <div class="form-group">
+          <%= f.label :arrival %>
+          <%= f.datetime_select :arrival %>
+        </div>
+
+        <%= f.hidden_field :operator_id, value: current_user.operator.id  %>
+
+        <div class="form-group">
+          <%= f.submit "Create ticket", class: 'btn btn-primary' %>
+        </div>
       <% end %>
-      </ul>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= form.label :destination %>
-    <%= form.text_field :destination %>
   </div>
-
-  <div class="field">
-    <%= form.label :departure %>
-    <%= form.datetime_select :departure %>
-  </div>
-
-  <div class="field">
-    <%= form.label :arrival %>
-    <%= form.datetime_select :arrival %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>

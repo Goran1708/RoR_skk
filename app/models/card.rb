@@ -8,13 +8,14 @@ class Card < ApplicationRecord
 
   before_save :digest_card_data
 
-  def self.find_by_card_number(card_number, cvv)
+  def self.find_by_card_number(card_number, cvv, user_id)
     set_digest
     card_number_digest = @sha256.base64digest(card_number)
     cvv_digest = @sha256.base64digest(cvv)
 
     where(:card_number_digest => card_number_digest).
-    where(:cvv_digest => cvv_digest)
+    where(:cvv_digest => cvv_digest).
+    where(:user_id => user_id)
   end
 
   def digest_card_data

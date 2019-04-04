@@ -1,7 +1,8 @@
 module PaymentServices
   class Payment
 
-    def self.call(params, purchase_history)
+    def self.call(params, purchase_history, user_id)
+      @user_id = user_id
       @ticket = Ticket.find(params[:ticket_id])
       card = credit_card_valid(params[:card_number], params[:cvv])
       ticket_quantity_valid(@ticket)
@@ -11,7 +12,7 @@ module PaymentServices
     end
 
     def self.credit_card_valid(card_number, cvv)
-      card = Card.find_by_card_number(card_number, cvv).first
+      card = Card.find_by_card_number(card_number, cvv, @user_id).first
       if !card
         raise Error::CustomError.new(422, :unprocessable_entity, "Credit card data invalid")
       end

@@ -10,13 +10,12 @@ class OrderItem < ApplicationRecord
   before_destroy :is_eligible_for_delete?
 
   def decrement_ticket_quantity!
-    puts "decrement_ticket_quantity: "
     ticket.decrement(:quantity, 1)
     ticket.save
   end
 
   def decrement_user_funds!
-    card_account = purchase_history.user.cards.first.card_accounts.first
+    card_account = purchase_history&.user&.cards&.first&.card_accounts&.first
     card_account.decrement(:balance, ticket.price)
     card_account.save
     # value = !card_account.save
@@ -36,7 +35,7 @@ class OrderItem < ApplicationRecord
   end
 
   def increment_user_funds!
-    card_account = purchase_history.user.cards.first.card_accounts.first
+    card_account = purchase_history.user&.cards&.first&.card_accounts&.first
     card_account.increment(:balance, ticket.price)
     card_account.save
   end

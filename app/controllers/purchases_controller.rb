@@ -3,7 +3,7 @@ class PurchasesController < ApplicationController
 
   def buy_ticket
     begin
-    @order_item = PaymentServices::Payment.call(params, @purchase_history)
+    @order_item = PaymentServices::Payment.call(params, @purchase_history, current_user.id)
 
     respond_to do |format|
       if @order_item.save

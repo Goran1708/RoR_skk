@@ -28,9 +28,10 @@ class TicketsController < ApplicationController
 
     respond_to do |format|
       if @ticket.save
-        format.html { redirect_to @ticket, notice: 'Ticket was successfully created.' }
+        format.html { redirect_to root_path, notice: 'Ticket was successfully created.' }
         format.json { render :show, status: :created, location: @ticket }
       else
+        #format.html { redirect_to new_ticket_path , alert: @ticket.errors.full_messages }
         format.html { render :new }
         format.json { render json: @ticket.errors, status: :unprocessable_entity }
       end
@@ -69,6 +70,6 @@ class TicketsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def ticket_params
-      params.require(:ticket).permit(:destination, :departure, :arrival)
+      params.require(:ticket).permit(:destination, :departure, :price, :quantity, :arrival, :operator_id)
     end
 end
