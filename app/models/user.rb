@@ -18,6 +18,10 @@ class User < ApplicationRecord
     self.operator.present?
   end
 
+  def get_card_account
+    cards.first&.card_accounts&.first
+  end
+
   def set_card_details!
     card_type = CardType.find_or_create_by!(type_name: "MASTERCARD")
 

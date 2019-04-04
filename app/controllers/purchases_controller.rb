@@ -3,7 +3,7 @@ class PurchasesController < ApplicationController
 
   def buy_ticket
     begin
-    @order_item = PaymentServices::Payment.call(params, @purchase_history, current_user.id)
+    @order_item = PaymentServices::PurchaseTicket.call(params, @purchase_history, current_user)
 
     respond_to do |format|
       if @order_item.save
@@ -15,7 +15,7 @@ class PurchasesController < ApplicationController
       end
     end
 
-    rescue Error::CustomError => e
+  rescue Error::CustomError, ActiveRecord::RecordInvalid => e
       respond_to do |format|
         format.html { redirect_to root_path, alert: e.message }
         format.json { head :no_content }
@@ -27,7 +27,7 @@ class PurchasesController < ApplicationController
     @order_item = OrderItem.find(params[:order_item_id])
     if @order_item.destroy
       respond_to do |format|
-        format.html { redirect_to root_path, notice: 'Order was successfully destroyed.' }
+        format.html { redirect_to root_path, notice: 'Ticket was successfuly canceled.' }
         format.json { head :no_content }
       end
     else

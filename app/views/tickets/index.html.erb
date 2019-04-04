@@ -31,6 +31,6 @@
     </tbody>
   </table>
 
-  <% if current_user.is_operator? %>
+  <% if user_signed_in? && current_user.is_operator? %>
     <%= link_to 'New ticket', new_ticket_path %>
   <% end %>
