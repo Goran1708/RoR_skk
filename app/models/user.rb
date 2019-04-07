@@ -4,33 +4,36 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  validates_presence_of :first_name, :last_name
+
   has_one :purchase_history
   has_many :cards
-  has_one :operator
+  belongs_to :operator, optional: true
 
   after_create_commit :set_purchase_history!, :set_card_details!
 
-  def set_purchase_history!
-    @purchase_history = PurchaseHistory.create(user_id: self.id)
-  end
-
   def is_operator?
     self.operator.present?
+  end
+
+  def full_name
+    self.first_name + " " + self.last_name
   end
 
   def get_card_account
     cards.first&.card_accounts&.first
   end
 
+  #hardcoded
   def set_card_details!
     card_type = CardType.find_or_create_by!(type_name: "MASTERCARD")
 
-    card = Card.create!(card_number: "1234567812345678", ccv: "567", expiration_date: "2021-04-24 16:50:32", card_type_id: card_type.id, user_id: self.id)
+    card = Card.create!(card_number_undigest: "1234567812345678", cvv_undigest: "567", expiration_date: Time.now + 5.years, card_type_id: card_type.id, user_id: self.id)
 
     CardAccount.create!(balance: 1000, card_id: card.id)
   end
 
-  def full_name
-    self.first_name + " " + self.last_name
+  def set_purchase_history!
+    @purchase_history = PurchaseHistory.create(user_id: self.id)
   end
 end

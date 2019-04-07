@@ -7,31 +7,33 @@
 #   Character.create(name: 'Luke', movie: movies.first
 
 
+operator =
+  Operator.create!([
+    { name: "Cazmatrans" },
+    { name: "Autotrans" },
+    { name: "Croatia Bus" }
+    ])
 
 user = User.create!(email: "admin@admin.com",
   first_name: "first",
   last_name: "last",
   password: "password",
-  password_confirmation: "password")
+  password_confirmation: "password",
+  operator: operator[0])
 
 user2 = User.create!(email: "admin@autotrans.com",
   first_name: "auto",
   last_name: "trans",
   password: "password",
-  password_confirmation: "password")
+  password_confirmation: "password",
+  operator: operator[1])
 
 user3 = User.create!(email: "admin@croatiabus.com",
   first_name: "croatia",
   last_name: "bus",
   password: "password",
-  password_confirmation: "password")
-
-operator =
-  Operator.create!([
-    { name: "Cazmatrans", user_id: user.id },
-    { name: "Autotrans", user_id: user2.id },
-    { name: "Croatia Bus", user_id: user3.id }
-    ])
+  password_confirmation: "password",
+  operator: operator[2])
 
 Ticket.create!([
   { destination: "Split",
@@ -44,7 +46,7 @@ Ticket.create!([
   departure: "2019-04-24 11:50:32",
   quantity: 5,
   price: 200,
-  operator_id: operator.first.id,
+  operator_id: operator.second.id,
   arrival: "2019-04-24 16:50:32"},
   {destination: "Zadar",
   quantity: 7,

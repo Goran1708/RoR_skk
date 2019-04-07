@@ -17,7 +17,7 @@
     <tbody>
       <% @tickets.each do |ticket| %>
         <tr>
-          <td><%= "Cazmatrans" %></td>
+          <td><%= ticket.operator_name %></td>
           <td><%= ticket.destination %></td>
           <td><%= ticket.departure %></td>
           <td><%= ticket.arrival %></td>

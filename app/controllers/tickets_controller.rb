@@ -18,8 +18,8 @@ class TicketsController < ApplicationController
   end
 
   # GET /tickets/1/edit
-  def edit
-  end
+  # def edit
+  # end
 
   # POST /tickets
   # POST /tickets.json
@@ -40,27 +40,27 @@ class TicketsController < ApplicationController
 
   # PATCH/PUT /tickets/1
   # PATCH/PUT /tickets/1.json
-  def update
-    respond_to do |format|
-      if @ticket.update(ticket_params)
-        format.html { redirect_to @ticket, notice: 'Ticket was successfully updated.' }
-        format.json { render :show, status: :ok, location: @ticket }
-      else
-        format.html { render :edit }
-        format.json { render json: @ticket.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+  # def update
+  #   respond_to do |format|
+  #     if @ticket.update(ticket_params)
+  #       format.html { redirect_to @ticket, notice: 'Ticket was successfully updated.' }
+  #       format.json { render :show, status: :ok, location: @ticket }
+  #     else
+  #       format.html { render :edit }
+  #       format.json { render json: @ticket.errors, status: :unprocessable_entity }
+  #     end
+  #   end
+  # end
 
   # DELETE /tickets/1
   # DELETE /tickets/1.json
-  def destroy
-    @ticket.destroy
-    respond_to do |format|
-      format.html { redirect_to tickets_url, notice: 'Ticket was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-  end
+  # def destroy
+  #   @ticket.destroy
+  #   respond_to do |format|
+  #     format.html { redirect_to tickets_url, notice: 'Ticket was successfully destroyed.' }
+  #     format.json { head :no_content }
+  #   end
+  # end
 
   private
     # Use callbacks to share common setup or constraints between actions.
