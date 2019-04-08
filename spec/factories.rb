@@ -6,7 +6,7 @@ FactoryBot.define do
       password_confirmation "password"
       first_name "First"
       last_name "Last"
-      user { Operator.first || association(:operator) }
+      operator { Operator.first || association(:operator) }
     end
     factory :customer do
       email "email13@email.com "
@@ -35,7 +35,12 @@ FactoryBot.define do
   end
   factory :operator do
     name "Name"
-    #user { User.first || association(:user) }
+  end
+  factory :order_item do
+    total 100
+    amount 1
+    ticket { Ticket.first || association(:ticket) }
+    purchase_history { PurchaseHistory.first || association(:purchase_history) } 
   end
   factory :ticket do
     destination "Zagreb"

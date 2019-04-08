@@ -17,9 +17,9 @@ class OrderItem < ApplicationRecord
   end
 
   def increment_user_funds!
-    card_account = purchase_history.user&.cards&.first&.card_accounts&.first
+    card_account = purchase_history.user.get_card_account
     card_account.increment(:balance, ticket.price)
-    card_account.save
+    card_account.save!
   end
 
   def is_eligible_for_delete?

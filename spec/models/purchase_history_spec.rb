@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe PurchaseHistory, type: :model do
 
   it "is valid" do
-    user = create(:customer)
+    user = create(:user_operator)
     purchase_history = PurchaseHistory.new(user_id: user.id)
     expect(purchase_history).to be_valid
   end

@@ -1,5 +1,6 @@
 class PurchasesController < ApplicationController
-  before_action :set_purchase_history
+  before_action :set_purchase_history, only: [:buy_ticket, :index]
+  before_action :authenticate_user!
 
   def buy_ticket
     begin
@@ -32,7 +33,7 @@ class PurchasesController < ApplicationController
       end
     else
       respond_to do |format|
-        format.html { redirect_to root_path, alert: @order_item.errors[:base].first }
+        format.html { redirect_to purchase_history_path, alert: @order_item.errors[:base].first }
         format.json { head :no_content }
       end
     end
