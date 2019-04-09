@@ -12,7 +12,9 @@ module PaymentServices
       ActiveRecord::Base.transaction do
         decrement_ticket_quantity!(@ticket)
         decrement_user_funds!(purchase_history, @ticket)
-        purchase_ticket(@ticket, purchase_history)
+        @order_item = purchase_ticket(@ticket, purchase_history)
+        @order_item.save!
+        @order_item
       end
     end
 

@@ -7,7 +7,7 @@ class PurchasesController < ApplicationController
     @order_item = PaymentServices::PurchaseTicket.call(params, @purchase_history, current_user)
 
     respond_to do |format|
-      if @order_item.save
+      if @order_item
         format.html { redirect_to purchase_history_path, notice: 'You bought the ticket!' }
         format.json { render :show, status: :created, location: @order_item }
       else
@@ -25,17 +25,29 @@ class PurchasesController < ApplicationController
   end
 
   def cancel_ticket
-    @order_item = OrderItem.find(params[:order_item_id])
-    if @order_item.destroy
+    begin
+    @order_item = PaymentServices::CancelTicket.call(params, current_user)
+
+    if @order_item
       respond_to do |format|
         format.html { redirect_to root_path, notice: 'Ticket was successfuly canceled.' }
         format.json { head :no_content }
+        format.js { flash.now[:notice] = 'Ticket was successfuly canceled.' }
       end
     else
       respond_to do |format|
         format.html { redirect_to purchase_history_path, alert: @order_item.errors[:base].first }
-        format.json { head :no_content }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+        format.js {}
       end
+    end
+
+    rescue Error::CustomError, ActiveRecord::RecordInvalid => e
+      respond_to do |format|
+        format.html { redirect_to root_path, alert: e.message }
+        format.json { head :no_content }
+        format.js { flash.now[:error] = e.message }
+      end and return
     end
   end
 

@@ -40,7 +40,7 @@ FactoryBot.define do
     total 100
     amount 1
     ticket { Ticket.first || association(:ticket) }
-    purchase_history { PurchaseHistory.first || association(:purchase_history) } 
+    purchase_history { PurchaseHistory.first || association(:purchase_history) }
   end
   factory :ticket do
     destination "Zagreb"
@@ -48,6 +48,6 @@ FactoryBot.define do
     price 100
     operator
     departure Time.now + 2.hours
-    arrival Time.now
+    arrival Time.now + 5.hours
   end
 end

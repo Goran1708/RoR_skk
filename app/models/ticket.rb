@@ -8,6 +8,8 @@ class Ticket < ApplicationRecord
 
   validates_presence_of :destination, :departure, :arrival, :quantity, :price
 
+  default_scope { order(departure: :asc) }
+
   def operator_name
     operator.name
   end

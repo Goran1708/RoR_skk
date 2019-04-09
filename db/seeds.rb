@@ -28,12 +28,11 @@ user2 = User.create!(email: "admin@autotrans.com",
   password_confirmation: "password",
   operator: operator[1])
 
-user3 = User.create!(email: "admin@croatiabus.com",
+user3 = User.create!(email: "admin@user.com",
   first_name: "croatia",
   last_name: "bus",
   password: "password",
-  password_confirmation: "password",
-  operator: operator[2])
+  password_confirmation: "password")
 
 Ticket.create!([
   { destination: "Split",

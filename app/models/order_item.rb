@@ -4,29 +4,9 @@ class OrderItem < ApplicationRecord
 
   before_save :set_total!
 
-  before_destroy :is_eligible_for_delete?
-  after_destroy :set_product_quantity_to_before!, :increment_user_funds!
+  default_scope { includes(ticket: :operator).order('tickets.departure') }
 
   def set_total!
     self.total = ticket.price * self.amount
-  end
-
-  def set_product_quantity_to_before!
-    ticket.increment(:quantity, self.amount)
-    ticket.save!
-  end
-
-  def increment_user_funds!
-    card_account = purchase_history.user.get_card_account
-    card_account.increment(:balance, ticket.price)
-    card_account.save!
-  end
-
-  def is_eligible_for_delete?
-    return true if ticket.departure > (Time.now.utc + 1.hours)
-
-    errors.add :base, "Cannot delete order 1 hour before departure"
-    false
-    throw(:abort)
   end
 end

@@ -92,7 +92,7 @@ RSpec.describe PurchasesController, type: :controller do
       delete :cancel_ticket, params: { order_item_id: order_item.id }
 
       expect(response.content_type).to eq "text/html"
-      expect(response).to redirect_to(purchase_history_path)
+      expect(response).to redirect_to(:root)
       expect(flash[:alert]).to match("Cannot delete order 1 hour before departure")
     end
   end

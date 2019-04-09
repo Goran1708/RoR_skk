@@ -16,14 +16,13 @@ class Card < ApplicationRecord
     card_number_digest = @sha256.base64digest(card_number)
     cvv_digest = @sha256.base64digest(cvv)
 
-    puts "card_number_digest: " + card_number_digest
-    puts "cvv_digest: " + cvv_digest
-    puts "user_id: " + user_id.to_s
     where(:card_number => card_number_digest).
     where(:cvv => cvv_digest).
     where(:user_id => user_id)
   end
 
+  #we should never save card data into our application,
+  # rather use something like braintree or stripe as payment gateway
   def digest_card_data
     @sha256 = self.class.set_digest
 
