@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :user do
     factory :user_operator do
-      email "email12@email.com "
+      email "email12@email.com"
       password "password"
       password_confirmation "password"
       first_name "First"
@@ -9,7 +9,7 @@ FactoryBot.define do
       operator { Operator.first || association(:operator) }
     end
     factory :customer do
-      email "email13@email.com "
+      email "email13@email.com"
       password "password"
       password_confirmation "password"
       first_name "First"
@@ -19,9 +19,10 @@ FactoryBot.define do
   factory :card_type do
     type_name "Name"
   end
+  #user already has a card, because it gets created in User model on user creation
   factory :card do
     card_number "1234567812345678"
-    cvv "123"
+    cvv "567"
     expiration_date "2019-04-26 11:50:32"
     card_type
     user { User.first || association(:customer) }

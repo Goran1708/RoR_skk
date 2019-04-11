@@ -6,6 +6,7 @@ module PaymentServices
       @ticket = Ticket.find(params[:ticket_id])
 
       card = fetch_card_data(params[:card_number], params[:cvv])
+      ticket_departure_valid(@ticket)
       ticket_quantity_valid(@ticket)
       user_has_enough_funds(@ticket, card)
 
@@ -42,20 +43,24 @@ module PaymentServices
     def self.fetch_card_data(card_number, cvv)
       card = Card.find_by_card_number(card_number, cvv, @user.id).first
       if !card
-        raise Error::CustomError.new(422, :unprocessable_entity, "Credit card data invalid")
+        raise Error::CustomError.new(409, :conflict, "Credit card data invalid")
       end
       card
     end
 
+    def self.ticket_departure_valid(ticket)
+      raise Error::CustomError.new(409, :conflict, "Ticket past departure date.") if ticket.past_departure_date?
+    end
+
     def self.ticket_quantity_valid(ticket)
       if (ticket.quantity <= 0)
-        raise Error::CustomError.new(422, :unprocessable_entity, "Out of tickets.")
+        raise Error::CustomError.new(409, :conflict, "Out of tickets.")
       end
     end
 
     def self.user_has_enough_funds(ticket, card)
       if (ticket.price > card.card_accounts.first.balance)
-        raise Error::CustomError.new(422, :unprocessable_entity, "User does not have enough funds.")
+        raise Error::CustomError.new(409, :conflict, "User does not have enough funds.")
       end
     end
   end

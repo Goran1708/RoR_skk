@@ -38,7 +38,7 @@ class PurchasesController < ApplicationController
       respond_to do |format|
         format.html { redirect_to purchase_history_path, alert: @order_item.errors[:base].first }
         format.json { render json: @user.errors, status: :unprocessable_entity }
-        format.js {}
+        format.js { flash.now[:error] = @order_item.errors.full_messages.join('; ') }
       end
     end
 

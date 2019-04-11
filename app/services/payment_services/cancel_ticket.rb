@@ -30,7 +30,7 @@ module PaymentServices
 
     def self.is_eligible_for_delete?
       if (@order_item.ticket.departure < (Time.now.utc + 1.hours))
-        raise Error::CustomError.new(422, :unprocessable_entity, "Cannot delete order 1 hour before departure")
+        raise Error::CustomError.new(422, :conflict, "Cannot delete order 1 hour before departure")
       end
     end
   end

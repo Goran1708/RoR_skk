@@ -19,7 +19,11 @@
         <td><%= order_item.ticket.arrival %></td>
         <td><%= order_item.amount %></td>
         <td><%= order_item.total %></td>
-        <td><%= link_to 'Cancel', cancel_ticket_path(order_item_id: order_item.id), method: :delete, remote: true %></td>
+        <% if !order_item.ticket.past_departure_date? %>
+          <td><%= link_to 'Cancel', cancel_ticket_path(order_item_id: order_item.id), method: :delete, remote: true %></td>
+        <% else %>
+          <td></td>
+        <% end %>
       </tr>
     <% end %>
 

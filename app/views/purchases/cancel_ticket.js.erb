@@ -2,9 +2,6 @@
   $('.alert').remove();
   $('#order_item_<%= @order_item.id %>').remove();
   alert("Success: <%= j flash.now[:notice] %>")
-<% elsif @order_item.present? && @order_item.errors.any? %>
-  $('.alert').remove();
-  alert("Error: <%= j @order_item.errors.full_messages.join('; ') %>")
 <% else %>
   $('.alert').remove();
   alert("Error: <%= j flash.now[:error] %>")

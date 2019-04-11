@@ -13,4 +13,8 @@ class Ticket < ApplicationRecord
   def operator_name
     operator.name
   end
+
+  def past_departure_date?
+    return true if (departure < Time.now.utc)
+  end
 end
