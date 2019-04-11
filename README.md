@@ -22,3 +22,6 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+
+Run `rspec` command to run all Model, Controller and Feature tests.
