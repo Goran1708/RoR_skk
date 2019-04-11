@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature 'User buys a ticket' do
+RSpec.feature "User buys a ticket", :type => :feature do
   scenario 'they buy a ticket and go to purchase history' do
     visit new_user_session_path
     ticket = create(:ticket)
